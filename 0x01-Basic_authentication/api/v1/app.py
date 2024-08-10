@@ -19,7 +19,11 @@ auth = None
 # Load the appropriate authentication instance based
 # on the environment variable
 if os.getenv('AUTH_TYPE'):
-    if os.getenv('AUTH_TYPE') == 'auth':
+    if os.getenv('AUTH_TYPE') == 'basic_auth':
+        from api.v1.auth.basic_auth import BasicAuth
+        auth = BasicAuth()
+    else:
+        # if os.getenv('AUTH_TYPE') == 'auth':
         from api.v1.auth.auth import Auth
         auth = Auth()
 
