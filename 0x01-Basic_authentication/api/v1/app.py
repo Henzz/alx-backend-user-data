@@ -53,7 +53,11 @@ def before_request():
     if auth is None:
         return
 
-    authRequired = auth.require_auth(request.path, ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/'])    
+    authRequired = auth.require_auth(request.path,
+                                     [
+                                         '/api/v1/status/',
+                                         '/api/v1/unauthorized/',
+                                         '/api/v1/forbidden/'])
     if authRequired is True:
         if auth.authorization_header(request) is None:
             abort(401)
