@@ -30,15 +30,19 @@ class Auth:
         if excluded_paths is None or len(excluded_paths) == 0:
             return True
 
+        # Ensure path ends with a slash
+        if not path.endswith('/'):
+            path += '/'
+
         # Check if path is in excluded_paths
         for excluded_path in excluded_paths:
             # Ensure excluded_path ends with a slash
             if not excluded_path.endswith('/'):
                 excluded_path += '/'
 
-        # Check if path matches the excluded_path
-        if path == excluded_path or path.startswith(excluded_path):
-            return False
+            # Check if path matches the excluded_path
+            if path == excluded_path or path.startswith(excluded_path):
+                return False
 
         # Path is not in the list of excluded_paths,
         # so it requires authentication
