@@ -7,6 +7,9 @@ from flask import request
 
 
 class Auth:
+    """
+    Template for all authentication system
+    """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
         Checks if a given path requires authentication.
