@@ -44,8 +44,26 @@ class DB:
         Find a user in the database based on the provided keyword arguments
         """
         try:
-            return self._session.query(User).filter_by(**kwargs).one()
+            user = self._session.query(User).filter_by(**kwargs).first()
         except NoResultFound:
-            raise NoResultFound("No user found with the given parameters")
-        except InvalidRequestError:
-            raise InvalidRequestError("Invalid query parameters")
+            raise NoResultFound("Not found")
+        # except InvalidRequestError:
+        except TypeError:
+            raise InvalidRequestError("Invalid")
+        
+        if not user:
+            raise NoResultFound
+        
+        return user
+    
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update user attributes
+        """
+        user = self.find_user_by(id=user_id)
+        for k, v in kwargs.items():
+            if hasattr(user, k):
+                setattr(user, k, v)
+            else:
+                raise ValueError
+
+        self._session.commit()
