@@ -43,19 +43,13 @@ class DB:
         """
         Find a user in the database based on the provided keyword arguments
         """
+        if not kwargs:
+            raise InvalidRequestError
         try:
-            user = self._session.query(User).filter_by(**kwargs).first()
-        except NoResultFound:
-            raise NoResultFound("Not found")
-        # except InvalidRequestError:
-        except TypeError:
-            raise InvalidRequestError("Invalid")
-        
-        if not user:
+            return self._session.query(User).filter_by(**kwargs).one()
+        except Exception:
             raise NoResultFound
-        
-        return user
-    
+
     def update_user(self, user_id: int, **kwargs) -> None:
         """Update user attributes
         """
