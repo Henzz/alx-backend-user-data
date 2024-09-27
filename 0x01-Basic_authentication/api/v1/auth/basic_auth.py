@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-"""
-Auth Basic module for the API
-"""
 """Basic authentication module for the API.
 """
 import re
